@@ -27,13 +27,14 @@ app.use express.static path.join __dirname, '../public'
 app.set 'views', path.join __dirname, '../views'
 app.set 'view engine', 'jade'
 
+
 app.use stylus.middleware {
-	src: path.join __dirname, '../public'
-	dest: path.join __dirname, '../public'
+	src: path.join __dirname, '../public/styles'
 	compile: (stylString, filePath) ->
 		return stylus stylString
 			.set 'filename', filePath
 			.set 'compress', not developmentMode
+			.set 'force', developmentMode
 			.set 'sourcemap', {
 				comment: developmentMode
 				inline: true
