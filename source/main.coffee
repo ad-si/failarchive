@@ -17,7 +17,7 @@ dummyFails = [
 ]
 
 app = express()
-developmentMode = app.get 'env' is 'development'
+developmentMode = app.get('env') is 'development'
 
 app.use favicon path.normalize('public/images/favicon.png'), {maxAge: 1000}
 app.use compression()
