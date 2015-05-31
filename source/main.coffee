@@ -45,7 +45,7 @@ app.get '/', (request, response) ->
 	response.render 'index', {fails: dummyFails}
 
 if developmentMode
-	app.use errorhandler()
+	app.use errorHandler()
 
 
 
