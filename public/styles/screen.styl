@@ -7,6 +7,14 @@
 body
 	width 100%
 	font-family Helvetica, sans-serif
+	background-color rgb(230,230,230)
+
+h1
+	color black
+	font-family Kreon, sans-serif
+	font-weight 700
+	span
+		color rgb(80,40,0)
 
 button
 	color rgb(50,50,50)
@@ -15,13 +23,17 @@ button
 	border-radius 0.2em
 
 #wrapper
-	padding 0 1em 2em 1em
+	background-color white
+	padding 0 0em 2em 0em
 	width 100%
+
+main
+	padding 0 1em
 
 header
 	position relative
-	background-color red
-	padding 1em
+	background-color rgb(190,150,100)
+	padding 1em  2em
 	h1
 		display inline-block
 	button
@@ -29,13 +41,17 @@ header
 		right 1em
 
 iframe
-	width 100%
-	min-height 20em
+	min-width 16em
+	min-height 12em
+
+.fail
+	padding 2em 1em 1em 1em
+	border-bottom 1px solid rgb(230,230,230)
+	h2
+		margin-bottom 0.5em
 
 
-@media screen and (min-width 600px)
-	iframe
-		width 560px
+//@media screen and (min-width 600px)
 
 
 @media screen and (min-width 960px)
