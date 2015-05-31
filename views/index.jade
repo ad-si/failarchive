@@ -1,0 +1,22 @@
+extends ./layout
+
+block content
+	h1 FailArchive
+	#users
+		for fail in fails
+			h2= fail.title || ''
+			
+			- var defaultVideo = 'https://www.youtube.com/embed/BROWqjuTM0g'
+			
+			iframe(
+			width="560"
+			height="315"
+			src=fail.video ? fail.video.url || defaultVideo : defaultVideo
+			frameborder="0"
+			allowfullscreen
+			)
+			
+			p= fail.description || ''
+				
+			| Upvotes: #{fail.upvotes || 0}
+			| Downvotes: #{fail.downvotes || 0}
