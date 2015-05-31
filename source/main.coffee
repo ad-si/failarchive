@@ -3,6 +3,7 @@ path = require 'path'
 express = require 'express'
 errorHandler = require 'errorhandler'
 favicon = require 'serve-favicon'
+compression = require 'compression'
 
 dummyFails = [
 	{
@@ -15,6 +16,7 @@ dummyFails = [
 
 app = express()
 app.use favicon path.normalize('public/images/favicon.png'), {maxAge: 1000}
+app.use compression()
 
 app.use express.static path.join __dirname, '../public'
 
