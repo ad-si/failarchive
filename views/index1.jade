@@ -12,30 +12,25 @@ block content
 				option(value='drunk') Drunk
 				option(value='woman') Woman
 	main
-		for fail, index in fails
+		for fail in fails.slice(0,2)
 			section.fail
 				h2: a(href='/fail/' + fail.id)= fail.title || ''
 
-				.video(
-					id='video-' + fail.id
-					data-id=fail.id
-				)
+				.video(id='video-'fail.id)
 					div
-						if index < 3
-							iframe(
-								id='iframe-' + fail.id
-								data-id=fail.id
-								src='https://www.youtube.com/embed/' + fail.id + '?enablejsapi=1'
-								frameborder="0"
-								allowfullscreen
-							)
-
 						img(
 							id='image-' + fail.id
-							data-id=fail.id
+							data-video-id=fail.id
 							class='thumbnail'
 							src='https://i.ytimg.com/vi/#{fail.id}/hqdefault.jpg'
 							alt=fail.title
+						)
+						
+						iframe(
+							id=fail.id
+							src='https://youtube.com/embed/' + fail.id + '?enablejsapi=1'
+							frameborder="0"
+							allowfullscreen
 						)
 
 				p= fail.description || ''

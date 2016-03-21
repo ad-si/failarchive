@@ -31,16 +31,22 @@ button
 
 #wrapper
 	background-color white
-	padding 0 0em 2em 0em
 	width 100%
 
+nav
+	padding 0 2em
+	margin-bottom 1em
+	.categories
+		width 20em
+
 main
-	padding 0 1em
+	padding 0 2em 2em 2em
 
 header
 	position relative
 	background-color rgb(190,150,100)
 	padding 1em  2em
+	margin-bottom 1em
 	h1
 		display inline-block
 	button
@@ -48,14 +54,15 @@ header
 		right 1em
 
 .video
-	max-width: 80vw
+	max-width: 50vw
 
 .video > div
 	position: relative
 	padding-bottom: 75%
 	height: 0px
 
-.video iframe
+.video iframe,
+.video img
 	position: absolute
 	top: 0px
 	left: 0px
@@ -63,11 +70,14 @@ header
 	height 100%
   
 .fail
-	padding 2em 1em 1em 1em
-	border-bottom 1px solid rgb(230,230,230)
+	border-bottom 1px solid rgb(230, 230, 230)
 	h2
 		margin-bottom 0.5em
 
+footer
+	background-color rgb(190, 150, 100)
+	text-align center
+	padding 3em 0
 
 //@media screen and (min-width 600px)
 
@@ -76,3 +86,4 @@ header
 	#wrapper
 		width 960px
 		margin 0 auto
+		

@@ -8,6 +8,7 @@ stylus = require 'stylus'
 nib = require 'nib'
 fail = require '../routes/fail'
 fails = require '../routes/fails'
+failsTest = require '../routes/failsTest'
 
 
 app = express()
@@ -36,6 +37,7 @@ app.use stylus.middleware {
  }
 
 app.get '/', fails
+app.get '/test', failsTest
 app.get '/fail/:id', fail
 
 
