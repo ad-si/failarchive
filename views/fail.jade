@@ -1,0 +1,18 @@
+extends ./layout
+
+block content
+	main.fail
+		h2= fail.title || ''
+
+		.video
+			div
+				iframe(
+					src='https://youtube.com/embed/' + fail.id
+					frameborder="0"
+					allowfullscreen
+				)
+
+		p= fail.description || ''
+
+		| Upvotes: #{fail.upvotes || 0}
+		| Downvotes: #{fail.downvotes || 0}

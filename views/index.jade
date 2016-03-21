@@ -1,22 +1,25 @@
 extends ./layout
 
 block content
-	header
-		h1 Fail
-			span Archive
-		button() Submit a Fail
 	main
 		for fail in fails
 			section.fail
-				h2= fail.title || ''
+				h2: a(href='/fail/' + fail.id)= fail.title || ''
 
-				iframe(
-				src='https://youtube.com/embed/' + fail.id
-				frameborder="0"
-				allowfullscreen
-				)
+				.video
+					div
+						iframe(
+							src='https://www.youtube.com/embed/' + fail.id
+							frameborder="0"
+							allowfullscreen
+						)
 
 				p= fail.description || ''
 
 				| Upvotes: #{fail.upvotes || 0}
 				| Downvotes: #{fail.downvotes || 0}
+
+block scripts
+	script(src='//www.youtube.com/player_api')
+	script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js')
+	script(src='/scripts/main.js')

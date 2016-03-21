@@ -6,6 +6,7 @@ favicon = require 'serve-favicon'
 compression = require 'compression'
 stylus = require 'stylus'
 nib = require 'nib'
+fail = require '../routes/fail'
 fails = require '../routes/fails'
 
 
@@ -35,12 +36,13 @@ app.use stylus.middleware {
  }
 
 app.get '/', fails
+app.get '/fail/:id', fail
+
 
 if developmentMode
 	app.use errorHandler()
 
-
-
 if not module.parent
-	app.listen 3000
-	console.log 'Failarachive listens on http://localhost:3000'
+	port = process.env.PORT || 3005
+	app.listen port
+	console.log 'Failarachive listens on http://' + process.env.IP + ':' + port
