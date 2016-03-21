@@ -9,16 +9,14 @@ block content
 		for fail in fails
 			section.fail
 				h2= fail.title || ''
-				
-				- var defaultVideo = 'https://www.youtube.com/embed/BROWqjuTM0g'
-				
+
 				iframe(
-				src=fail.video ? fail.video.url || defaultVideo : defaultVideo
+				src='https://youtube.com/embed/' + fail.id
 				frameborder="0"
 				allowfullscreen
 				)
-				
+
 				p= fail.description || ''
-					
+
 				| Upvotes: #{fail.upvotes || 0}
 				| Downvotes: #{fail.downvotes || 0}

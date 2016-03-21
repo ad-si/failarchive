@@ -6,15 +6,8 @@ favicon = require 'serve-favicon'
 compression = require 'compression'
 stylus = require 'stylus'
 nib = require 'nib'
+fails = require '../routes/fails'
 
-dummyFails = [
-	{
-		title: 'Fail 1'
-	},
-	{
-		title: 'Fail 2'
-	}
-]
 
 app = express()
 developmentMode = app.get('env') is 'development'
@@ -26,7 +19,6 @@ app.use express.static path.join __dirname, '../public'
 
 app.set 'views', path.join __dirname, '../views'
 app.set 'view engine', 'jade'
-
 
 app.use stylus.middleware {
 	src: path.join __dirname, '../public/styles'
@@ -42,8 +34,7 @@ app.use stylus.middleware {
 			.use nib()
  }
 
-app.get '/', (request, response) ->
-	response.render 'index', {fails: dummyFails}
+app.get '/', fails
 
 if developmentMode
 	app.use errorHandler()
@@ -52,4 +43,4 @@ if developmentMode
 
 if not module.parent
 	app.listen 3000
-	console.log 'Express started on port 3000'
+	console.log 'Failarachive listens on http://localhost:3000'
