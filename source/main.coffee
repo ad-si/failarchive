@@ -10,20 +10,17 @@ fail = require '../routes/fail'
 fails = require '../routes/fails'
 failsTest = require '../routes/failsTest'
 
+publicDirectory = path.join __dirname, '../public'
+
 
 app = express()
 developmentMode = app.get('env') is 'development'
 
-app.use favicon path.normalize('public/images/favicon.png'), {maxAge: 1000}
 app.use compression()
-
-app.use express.static path.join __dirname, '../public'
-
-app.set 'views', path.join __dirname, '../views'
-app.set 'view engine', 'jade'
+app.use favicon path.join(publicDirectory, 'images/favicon.png'), {maxAge: 1000}
 
 app.use stylus.middleware {
-	src: path.join __dirname, '../public/styles'
+	src: path.join publicDirectory, 'styles'
 	compile: (stylString, filePath) ->
 		return stylus stylString
 			.set 'filename', filePath
@@ -34,7 +31,12 @@ app.use stylus.middleware {
 				inline: true
 			}
 			.use nib()
- }
+}
+
+app.use express.static publicDirectory
+
+app.set 'views', path.join __dirname, '../views'
+app.set 'view engine', 'jade'
 
 app.get '/', fails
 app.get '/test', failsTest
