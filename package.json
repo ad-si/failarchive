@@ -27,7 +27,7 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AtiX/failarchive.git"
+    "url": "git+https://github.com/adius/failarchive.git"
   },
   "keywords": [
     "fail"
@@ -35,7 +35,7 @@
   "author": "Adrian Sieber",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AtiX/failarchive/issues"
+    "url": "https://github.com/adius/failarchive/issues"
   },
-  "homepage": "https://github.com/AtiX/failarchive#readme"
+  "homepage": "https://github.com/adius/failarchive#readme"
 }
