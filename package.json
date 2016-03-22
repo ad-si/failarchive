@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "coffee ./source/main.coffee",
-    "develop": "coffee --watch --map ./source/main.coffee",
-    "build": "coffee --compile .",
+    "start": "node_modules/coffee-script/bin/coffee ./source/main.coffee",
+    "develop": "node_modules/coffee-script/bin/coffee --watch --map ./source/main.coffee",
+    "build": "node_modules/coffee-script/bin/coffee --compile .",
     "clean": "rm -f routes/{*.js,*.js.map} source/{*.js,*.js.map}"
   },
   "dependencies": {
