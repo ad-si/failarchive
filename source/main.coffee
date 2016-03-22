@@ -45,6 +45,7 @@ if developmentMode
 	app.use errorHandler()
 
 if not module.parent
-	port = process.env.PORT || 3005
+	port = process.env.PORT or 3000
+	host = process.env.IP or 'localhost'
 	app.listen port
-	console.log 'Failarachive listens on http://' + process.env.IP + ':' + port
+	console.log 'Failarachive listens on http://' + host + ':' + port

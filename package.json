@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "coffee --watch ./source/main.coffee & stylus -w ./public/styles"
+    "start": "coffee --watch --map ./source/main.coffee & stylus -w ./public/styles",
+    "build": "coffee --compile . & stylus ./public/styles",
+    "clean": "rm -f routes/{*.js,*.js.map} source/{*.js,*.js.map}"
   },
   "dependencies": {
     "body-parser": "~1.12.4",
