@@ -45,6 +45,7 @@ if developmentMode
 	app.use errorHandler()
 
 if not module.parent
-	port = process.env.PORT || 3005
-	app.listen port
-	console.log 'Failarachive listens on http://' + process.env.IP + ':' + port
+	port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3005
+        ip = process.env.OPENSHIFT_NODEJS_IP  || process.env.IP || '127.0.0.1' 
+	app.listen port, ip
+	console.log 'Failarachive listens on http://' + ip + ':' + port
