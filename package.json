@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "coffee ./source/main.coffee & stylus ./public/styles",
+    "start": "coffee ./source/main.coffee && stylus ./public/styles && node app.js",
     "develop": "coffee --watch ./source/main.coffee & stylus -w ./public/styles"
   },
   "dependencies": {
