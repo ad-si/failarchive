@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "develop": "coffee --watch ./source/main.coffee & stylus -w ./public/styles",
-    "start": "coffee ./source/main.coffee & stylus ./public/styles"
+    "start": "coffee --watch ./source/main.coffee & stylus -w ./public/styles"
   },
   "dependencies": {
     "body-parser": "~1.12.4",
