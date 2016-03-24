@@ -6,9 +6,10 @@ module.exports = (request, response) ->
 	currentCategory = request.query.categories
 	search = ''
 	if currentCategory?
-		search = '?search=' + currentCategory
+		search = '&search=' + currentCategory
 	requestModule(
-		'https://api.mastermind.do/v1/216/1a98cc74-2e30-4d67-99f1-d67059ff5c5b' + search
+		'https://api.mastermind.do/v1/216/1a98cc74-2e30-4d67-99f1-d67059ff5c5b' +
+		'?page=' + Math.floor(Math.random() * 10 + 1) + search
 		(error, apiResponse, body) ->
 			if error
 				return console.error 'error: ' + error
