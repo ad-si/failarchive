@@ -1,4 +1,5 @@
 fontColor = rgb(50, 50, 50)
+wrapperWidth = 820px
 
 *
 	margin 0
@@ -39,13 +40,13 @@ main
 	padding 0 2em 2em 2em
 
 header
+	text-align center
 	position relative
 	padding 1em 2em
 	h1
-		display inline-block
 		font-family Kreon, sans-serif
 		font-weight 700
-		margin-right 1em
+		margin-bottom 1rem
 		a
 			text-decoration none
 			color fontColor
@@ -59,7 +60,7 @@ form
 	display inline-block
 	vertical-align text-bottom
 	select
-		width 25em
+		width 23em
 	input[type=submit]
 		border 1px solid rgb(170, 170, 170)
 		background-color rgb(238, 238, 238)
@@ -73,27 +74,28 @@ form
 		padding 0.65em 1em
 
 .chosen-container
-	padding-right 0.5em
+	margin-right 0.5em
+	margin-bottom 0.5em
+	vertical-align top
 	ul
 		border-radius 0.2em !important
 	span
 		text-transform capitalize
 
+
 .video
-	max-width: 50vw
+	> div
+		position: relative
+		padding-bottom: 75%
+		height: 0px
 
-.video > div
-	position: relative
-	padding-bottom: 75%
-	height: 0px
-
-.video iframe,
-.video img
-	position: absolute
-	top: 0px
-	left: 0px
-	width 100%
-	height 100%
+	iframe,
+	img
+		position: absolute
+		top: 0px
+		left: 0px
+		width 100%
+		height 100%
 
 .fail
 	border-bottom 1px solid rgb(230, 230, 230)
@@ -104,10 +106,16 @@ footer
 	text-align center
 	padding 3em 0
 
-//@media screen and (min-width 600px)
+@media screen and (min-width wrapperWidth)
+	header
+		text-align left
+		h1
+			display inline-block
+			margin-right 1em
+			margin-bottom 0
+		.chosen-container
+			margin-bottom 0
 
-
-@media screen and (min-width 860px)
 	#wrapper
-		width 860px
+		width wrapperWidth
 		margin 0 auto
