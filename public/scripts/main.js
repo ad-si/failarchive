@@ -12,6 +12,7 @@ $('select.categories').chosen()
 
 // gets called by YouTube SDK
 function onYouTubeIframeAPIReady() {
+	console.log(YT.Player)
 	isScrolledIntoView();
 }
 
@@ -46,43 +47,50 @@ function playThis (elem) {
 		return
 	}
 
-    currentId = elem.data('id')
+  currentId = elem.data('id')
 	pauseAllPlayersBut(elem.data('id'))
-    var player = getPlayerForId(elem.data('id'))
-    console.log('result ', player)
-    var $image = $('#image-' + elem.data('id'))
-    var fadeOutDuration = 500
+  var player = getPlayerForId(elem.data('id'))
+  console.log('result ', player)
+  var $image = $('#image-' + elem.data('id'))
+  var fadeOutDuration = 500
 
-    if (player) {
-    	console.log('Player found, start play')
-    	setTimeout(function () {
-    		$image.fadeOut(fadeOutDuration, function () { $image.remove})
-    	}, 100)
-    	player.player.playVideo();
-    }
-    else {
-    	console.log('Player not found', elem.data('id'))
-    	if (YT) {
-    		console.log('Create Player for id:', 'iframe-' + elem.data('id'))
-	    	player = new YT.Player('iframe-' + elem.data('id'), {
-		      events: {
-		        'onReady': function () {
-		        	setTimeout(function() {
-			    		$image.fadeOut(fadeOutDuration, function () { $image.remove})
-			    	}, 100)
-		        	player.playVideo()
-			    	console.log('Start Play')
-		        	players.push({
-		        		id: elem.data('id'),
-		        		player: player
-		        	})
-		        }
-		      }
-		    })
-    	} else {
-    		console.log("YT not loaded yet")
-    	}
-    }
+  if (player) {
+  	console.log('Player found, start play')
+  	setTimeout(function () {
+  		$image.fadeOut(fadeOutDuration, function () { $image.remove})
+  	}, 100)
+  	player.player.playVideo();
+  }
+  else {
+  	console.log('Player not found', elem.data('id'))
+  	if (YT.Player) {
+  		console.log('Create Player for id:', 'iframe-' + elem.data('id'))
+    	player = new YT.Player('iframe-' + elem.data('id'), {
+	      events: {
+	        'onReady': function () {
+	        	setTimeout(function() {
+		    		$image.fadeOut(fadeOutDuration, function () { $image.remove})
+		    	}, 100)
+	        	player.playVideo()
+						currentId = elem.data('id')
+		    		console.log('Start Play without buffer')
+	        	players.push({
+	        		id: elem.data('id'),
+	        		player: player
+	        	})
+	        },
+	        'onStateChange': function(newState) {
+						console.log('aaaaa', newState)
+	        	if (newState.data == YT.PlayerState.ENDED && currentId === elem.data('id')) {
+							$('html, body').animate({scrollTop: '+=' + $('.fail').height() + 'px'}, 800);
+						}
+	        }
+	      }
+	    })
+  	} else {
+  		console.log("YT not loaded yet")
+  	}
+  }
 }
 
 function bufferThis (elem) {
@@ -112,10 +120,14 @@ function bufferThis (elem) {
 		        		player: player
 		        	})
 	        	}
-        	 	if (newState.data == 3 && currentId !== elem.data('id')) {
+        	 	if (newState.data == YT.PlayerState.BUFFERING && currentId !== elem.data('id')) {
         	 		console.log('pause', elem.data('id'))
 			        player.pauseVideo()
-			 	}
+			 			} else if (newState.data == YT.PlayerState.ENDED && currentId === elem.data('id')) {
+							$('html, body').animate({scrollTop: '+=' + $('.fail').height() + 'px'}, 800)
+						} else if (newState.data == YT.PlayerState.PLAYING) {
+							currentId = elem.data('id')
+						}
 	        }
 	      }
 		})
