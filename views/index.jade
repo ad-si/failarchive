@@ -9,15 +9,9 @@ block content
 				data-placeholder='Choose categories'
 				onchange='this.form.submit()'
 			)
-				option(value='drunk', selected= categories=='drunk') Drunk
-				option(value='woman', selected= categories=='woman') Woman
-				option(value='dating', selected= categories=='dating') Dating
-				option(value='tinder', selected= categories=='tinder') Tinder
-				option(value='compilation', selected= categories=='compilation') Compilation
-				option(value='celeb', selected= categories=='celeb') Celeb
-				option(value='sport', selected= categories=='sport') Sport
-				option(value='people', selected= categories=='people') People
-				option(value='gaming', selected= categories=='gaming') Gaming
+				each category in categories
+					option(value=category, selected= currentCategory == category) #{category}
+
 	main
 		for fail, index in fails
 			section.fail
