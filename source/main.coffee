@@ -16,7 +16,7 @@ app = express()
 developmentMode = app.get('env') is 'development'
 
 app.use compression()
-app.use favicon path.join(publicDirectory, 'images/favicon.png'), {maxAge: 1000}
+app.use favicon path.join(publicDirectory, 'images/favicon.ico'), {maxAge: 1000}
 
 app.use stylus.middleware {
 	src: path.join publicDirectory, 'styles'
