@@ -12,10 +12,10 @@ module.exports = (request, response) ->
 				return console.error 'error: ' + error
 
 			if apiResponse.statusCode isnt 200
-				console.error "Statuscode must be 200 and not" +
+				console.error "Statuscode must be 200 and not " +
 					apiResponse.statusCode
 
 			fails = JSON.parse(body).result
 
-			response.render 'index', {fails}
+			response.render 'index', {fails, categories}
 	)
