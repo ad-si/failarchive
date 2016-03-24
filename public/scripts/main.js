@@ -1,8 +1,19 @@
 /*global YT*/
 var lastPlayer
-var nextPlayer 
+var nextPlayer
 var players = []
 var currentId
+
+$(window).scroll(function() {
+	clearTimeout($.data(this, 'scrollTimer'))
+	$.data(this, 'scrollTimer', setTimeout(isScrolledIntoView, 100))
+})
+// $('select.categories').chosen()
+
+// gets called by YouTube SDK
+function onYouTubeIframeAPIReady() {
+	isScrolledIntoView();
+}
 
 function getPlayerForId (id) {
 	var result
@@ -34,14 +45,14 @@ function playThis (elem) {
 	if (!elem.find('iframe').length) {
 		return
 	}
-	
+
     currentId = elem.data('id')
 	pauseAllPlayersBut(elem.data('id'))
     var player = getPlayerForId(elem.data('id'))
     console.log('result ', player)
     var $image = $('#image-' + elem.data('id'))
     var fadeOutDuration = 500
-    
+
     if (player) {
     	console.log('Player found, start play')
     	setTimeout(function () {
@@ -78,9 +89,9 @@ function bufferThis (elem) {
 	if (!elem.find('iframe').length || currentId === elem.data('id')) {
 		return
 	}
-	
+
 	console.log('should buffer ', elem.data('id'))
-	
+
 	if (!getPlayerForId('iframe-' + elem.data('id'))) {
     	var player;
     	player = new YT.Player('iframe-' + elem.data('id'), {
@@ -120,9 +131,9 @@ function isScrolledIntoView() {
 		var elemTop = $(frames[i]).offset().top
 		var elemHeight =  $(frames[i]).height()
 		var elemBottom = elemTop + elemHeight
-		
+
 		createIframeForId($(frames[i]).data('id'));
-		
+
 		if ((elemTop + elemHeight/2) > docViewTop) {
 			for (var j = 1; j < Math.min(frames.length - i, 4); j++) {
 				createIframeForId($(frames[i+j]).data('id'));
@@ -136,26 +147,18 @@ function isScrolledIntoView() {
 		} else {
 			stopPlayer($(frames[i]).data('id'))
 		}
-		
+
 	}
 }
-
-$(window).scroll(function() {
-	clearTimeout($.data(this, 'scrollTimer'))
-	$.data(this, 'scrollTimer', setTimeout(isScrolledIntoView, 100))
-})
-
-// $('select.categories').chosen()
-
 
 function createIframeForId (id) {
 	var $videoContainter = $('#video-' + id)
 	var $iframe = $videoContainter.find('iframe')
-	
+
 	if ($iframe.length) {
 		return
 	}
-	
+
 	$videoContainter
 		.find('div')
 		.prepend($('<iframe ' +
