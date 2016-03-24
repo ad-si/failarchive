@@ -174,7 +174,7 @@ function createIframeForId (id) {
 	$videoContainter
 		.find('div')
 		.prepend($('<iframe ' +
-			'src="https://www.youtube.com/embed/' + id + '?enablejsapi=1" ' +
+			'src="https://www.youtube.com/embed/' + id + '?enablejsapi=1&iv_load_policy=3" ' +
 			'frameborder=0 allowfullscreen ' +
 			'data-id="' + id + '" ' +
 			'id="iframe-' + id + '"/>'))
