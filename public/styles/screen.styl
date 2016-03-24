@@ -11,18 +11,30 @@ body
 	font-size 16px
 	font-family Helvetica, sans-serif
 	background-color rgb(230,230,230)
+	color rgb(50, 50, 50)
 
 a
 	cursor pointer
 
 h1
+	display inline-block
 	font-family Kreon, sans-serif
 	font-weight 700
+	margin-right 1em
 	a
 		text-decoration none
 		color fontColor
 	span
-		color rgb(80,40,0)
+		color rgb(160,0,0)
+
+.fail
+	padding-top 2em
+	padding-bottom 2em
+	h2 a
+		text-decoration none
+		color inherit
+		&:hover
+			text-decoration underline
 
 button,
 input[type=submit]
@@ -34,27 +46,23 @@ input[type=submit]
 	background-color white
 	width 100%
 
-nav
-	padding 0 2em
-	margin-bottom 1em
-	select.tag
-		width 25em
-
 main
 	padding 0 2em 2em 2em
 
 header
 	position relative
-	background-color rgb(190, 150, 100)
 	padding 1em 2em
-	margin-bottom 1em
 	h1
 		display inline-block
 	button
 		position absolute
 		right 1em
 
-nav form
+form
+	display inline-block
+	vertical-align text-bottom
+	select
+		width 25em
 	input[type=submit]
 		border 1px solid rgb(170, 170, 170)
 		background-color rgb(238, 238, 238)
@@ -96,14 +104,13 @@ nav form
 		margin-bottom 0.5em
 
 footer
-	background-color rgb(190, 150, 100)
 	text-align center
 	padding 3em 0
 
 //@media screen and (min-width 600px)
 
 
-@media screen and (min-width 960px)
+@media screen and (min-width 860px)
 	#wrapper
-		width 960px
+		width 860px
 		margin 0 auto

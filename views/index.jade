@@ -1,21 +1,6 @@
 extends ./layout
 
 block content
-	nav
-		form
-			select(
-				name='tag'
-				class='tag'
-				data-placeholder='Choose tags'
-				multiple=true
-			)
-				for tag in availableTags
-					option(
-						value = tag
-						selected = (currentTags.indexOf(tag) !== -1)
-					)= tag
-			input(type='submit')
-
 	main
 		for fail, index in fails
 			section.fail
@@ -44,15 +29,6 @@ block content
 							alt=fail.title
 						)
 
-				p= fail.description || ''
-
-				| Upvotes: #{fail.upvotes || 0}
-				| Downvotes: #{fail.downvotes || 0}
-
 block scripts
-	script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js')
-	script(
-		src='//cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js'
-	)
 	script(src='//www.youtube.com/iframe_api')
 	script(src='/scripts/main.js')

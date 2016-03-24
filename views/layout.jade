@@ -1,14 +1,44 @@
 doctype html
 html
-	include head
+	head
+		meta(charset='utf-8')
+		title FailArchive
+		meta(name='viewport' content='width=device-width, initial-scale=1')
+		link(
+			rel='stylesheet'
+			href='//fonts.googleapis.com/css?family=Kreon:400,700'
+		)
+		link(
+			rel='stylesheet'
+			href='https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css'
+		)
+		link(rel='stylesheet' href='/styles/screen.css')
+		script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js')
+		script(
+			src='//cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js')
+
 	body
 		#wrapper
 			header
 				h1: a(href='/') Fail
 					span Archive
-				button() Submit a Fail
+
+				form(action='/')
+					select(
+						name='tag'
+						class='tag'
+						data-placeholder='Choose tags'
+						multiple=true
+					)
+						for tag in availableTags
+							option(
+								value = tag
+								selected = (currentTags.indexOf(tag) !== -1)
+							)= tag
+					input(type='submit')
+
 			block content
-			
+
 			footer
 				p= 'For feedback contact us at '
 					a(href='mailto:info@failarchive.com') info@failarchive.com

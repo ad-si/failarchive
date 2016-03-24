@@ -8,7 +8,6 @@ stylus = require 'stylus'
 nib = require 'nib'
 fail = require '../routes/fail'
 fails = require '../routes/fails'
-failsTest = require '../routes/failsTest'
 
 publicDirectory = path.join __dirname, '../public'
 
@@ -39,7 +38,6 @@ app.set 'views', path.join __dirname, '../views'
 app.set 'view engine', 'jade'
 
 app.get '/', fails
-app.get '/test', failsTest
 app.get '/fail/:id', fail
 
 

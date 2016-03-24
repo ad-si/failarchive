@@ -16,3 +16,8 @@ block content
 
 		| Upvotes: #{fail.upvotes || 0}
 		| Downvotes: #{fail.downvotes || 0}
+
+block scripts
+	script.
+		var $select = $('select.tag')
+		$select.chosen()
