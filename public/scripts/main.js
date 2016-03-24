@@ -8,7 +8,7 @@ $(window).scroll(function() {
 	clearTimeout($.data(this, 'scrollTimer'))
 	$.data(this, 'scrollTimer', setTimeout(isScrolledIntoView, 100))
 })
-// $('select.categories').chosen()
+$('select.categories').chosen()
 
 // gets called by YouTube SDK
 function onYouTubeIframeAPIReady() {
