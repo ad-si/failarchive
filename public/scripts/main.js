@@ -8,12 +8,9 @@ $(window).scroll(function() {
 	clearTimeout($.data(this, 'scrollTimer'))
 	$.data(this, 'scrollTimer', setTimeout(isScrolledIntoView, 100))
 })
-var selectElement = $('select.categories')
+var $select = $('select.tag')
+$select.chosen()
 
-selectElement.on('change', function () {
-	this.form.submit()
-})
-selectElement.chosen()
 
 // gets called by YouTube SDK
 function onYouTubeIframeAPIReady() {

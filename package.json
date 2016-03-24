@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "./node_modules/.bin/coffee ./source/main.coffee",
-    "develop": "./node_modules/.bin/coffee --watch --map ./source/main.coffee",
+    "develop": "./node_modules/.bin/coffee --watch ./source/main.coffee",
     "build": "./node_modules/.bin/coffee --compile .",
     "clean": "rm -f routes/{*.js,*.js.map} source/{*.js,*.js.map}"
   },
@@ -19,6 +19,7 @@
     "express": "^4.12.4",
     "jade": "^1.9.2",
     "knuth-shuffle": "^1.0.1",
+    "lodash": "^4.6.1",
     "morgan": "~1.5.3",
     "nib": "^1.1.0",
     "request": "^2.69.0",

@@ -4,15 +4,17 @@ block content
 	nav
 		form
 			select(
-				name='categories'
-				class='categories'
-				data-placeholder='Choose categories'
+				name='tag'
+				class='tag'
+				data-placeholder='Choose tags'
+				multiple=true
 			)
-				for category in categories
+				for tag in availableTags
 					option(
-						value = category
-						selected = (currentCategory === category)
-					)= category
+						value = tag
+						selected = (currentTags.indexOf(tag) !== -1)
+					)= tag
+			input(type='submit')
 
 	main
 		for fail, index in fails
@@ -28,7 +30,8 @@ block content
 							iframe(
 								id='iframe-' + fail.id
 								data-id=fail.id
-								src='https://www.youtube.com/embed/' + fail.id + '?enablejsapi=1&iv_load_policy=3'
+								src='https://www.youtube.com/embed/' + fail.id +
+									'?enablejsapi=1&iv_load_policy=3'
 								frameborder="0"
 								allowfullscreen
 							)
@@ -48,7 +51,8 @@ block content
 
 block scripts
 	script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js')
-	script(src='//cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js')
+	script(
+		src='//cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js'
+	)
 	script(src='//www.youtube.com/iframe_api')
 	script(src='/scripts/main.js')
-=

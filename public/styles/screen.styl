@@ -24,8 +24,9 @@ h1
 	span
 		color rgb(80,40,0)
 
-button
-	font-weight 900
+button,
+input[type=submit]
+	font-weight 500
 	padding 0.5em 1em
 	border-radius 0.2em
 
@@ -36,8 +37,8 @@ button
 nav
 	padding 0 2em
 	margin-bottom 1em
-	.categories
-		width 20em
+	select.tag
+		width 25em
 
 main
 	padding 0 2em 2em 2em
@@ -45,7 +46,7 @@ main
 header
 	position relative
 	background-color rgb(190, 150, 100)
-	padding 1em  2em
+	padding 1em 2em
 	margin-bottom 1em
 	h1
 		display inline-block
@@ -53,8 +54,25 @@ header
 		position absolute
 		right 1em
 
-.chosen-container span
-	text-transform capitalize
+nav form
+	input[type=submit]
+		border 1px solid rgb(170, 170, 170)
+		background-color rgb(238, 238, 238)
+		background-image linear-gradient(
+			rgb(244, 244, 244) 20%,
+			rgb(240, 240, 240) 50%,
+			rgb(232, 232, 232) 52%,
+			rgb(238, 238, 238) 100%
+		)
+		cursor pointer
+		padding 0.65em 1em
+
+.chosen-container
+	padding-right 0.5em
+	ul
+		border-radius 0.2em !important
+	span
+		text-transform capitalize
 
 .video
 	max-width: 50vw

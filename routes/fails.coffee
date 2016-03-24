@@ -1,25 +1,36 @@
 requestModule = require 'request'
 shuffle = require('knuth-shuffle').knuthShuffle
+lodash = require('lodash')
 
 module.exports = (request, response) ->
-	categories = ['drunk', 'dating', 'tinder', 'compilation',
-								'celeb', 'sport', 'people', 'gaming', 'sexy']
-	currentCategory = request.query.categories
-	search = ''
-	if currentCategory?
-		search = '&search=' + currentCategory
+	availableTags = [
+		'car',
+		'bike',
+		'surfing'
+		'drunk',
+		'woman',
+		'sport',
+		'gaming',
+		'sexy',
+		'party',
+		'faceplant',
+	]
+	currentTags = request.query.tag or lodash.sampleSize(availableTags, 2)
+
 	requestModule(
-		'https://api.mastermind.do/v1/216/1a98cc74-2e30-4d67-99f1-d67059ff5c5b' +
-		'?page=' + Math.floor(Math.random() * 10 + 1) + search
+		'https://api.mastermind.do/v1' +
+			'/216/1a98cc74-2e30-4d67-99f1-d67059ff5c5b' +
+			'?page=' + lodash.random(1, 10) +
+			'&search=' + currentTags
 		(error, apiResponse, body) ->
 			if error
 				return console.error 'error: ' + error
 
 			if apiResponse.statusCode isnt 200
-				console.error "Statuscode must be 200 and not " +
+				console.error 'Statuscode must be 200 and not ' +
 					apiResponse.statusCode
 
 			fails = shuffle(JSON.parse(body).result)
 
-			response.render 'index', {fails, categories, currentCategory}
+			response.render 'index', {fails, availableTags, currentTags}
 	)
