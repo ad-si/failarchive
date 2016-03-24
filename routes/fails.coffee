@@ -1,4 +1,5 @@
 requestModule = require 'request'
+shuffle = require('knuth-shuffle').knuthShuffle
 
 module.exports = (request, response) ->
 	categories = ['drunk', 'dating', 'tinder', 'compilation',
@@ -18,7 +19,7 @@ module.exports = (request, response) ->
 				console.error "Statuscode must be 200 and not " +
 					apiResponse.statusCode
 
-			fails = JSON.parse(body).result
+			fails = shuffle(JSON.parse(body).result)
 
 			response.render 'index', {fails, categories, currentCategory}
 	)
