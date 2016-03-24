@@ -8,12 +8,16 @@ $(window).scroll(function() {
 	clearTimeout($.data(this, 'scrollTimer'))
 	$.data(this, 'scrollTimer', setTimeout(isScrolledIntoView, 100))
 })
-$('select.categories').chosen()
+var selectElement = $('select.categories')
+
+selectElement.on('change', function () {
+	this.form.submit()
+})
+selectElement.chosen()
 
 // gets called by YouTube SDK
 function onYouTubeIframeAPIReady() {
-	console.log(YT.Player)
-	isScrolledIntoView();
+	isScrolledIntoView()
 }
 
 function getPlayerForId (id) {
@@ -47,50 +51,54 @@ function playThis (elem) {
 		return
 	}
 
-  currentId = elem.data('id')
+	currentId = elem.data('id')
 	pauseAllPlayersBut(elem.data('id'))
-  var player = getPlayerForId(elem.data('id'))
-  console.log('result ', player)
-  var $image = $('#image-' + elem.data('id'))
-  var fadeOutDuration = 500
+	var player = getPlayerForId(elem.data('id'))
+	var $image = $('#image-' + elem.data('id'))
+	var fadeOutDuration = 500
 
-  if (player) {
-  	console.log('Player found, start play')
-  	setTimeout(function () {
-  		$image.fadeOut(fadeOutDuration, function () { $image.remove})
-  	}, 100)
-  	player.player.playVideo();
-  }
-  else {
-  	console.log('Player not found', elem.data('id'))
-  	if (YT.Player) {
-  		console.log('Create Player for id:', 'iframe-' + elem.data('id'))
-    	player = new YT.Player('iframe-' + elem.data('id'), {
-	      events: {
-	        'onReady': function () {
-	        	setTimeout(function() {
-		    		$image.fadeOut(fadeOutDuration, function () { $image.remove})
-		    	}, 100)
-	        	player.playVideo()
-						currentId = elem.data('id')
-		    		console.log('Start Play without buffer')
-	        	players.push({
-	        		id: elem.data('id'),
-	        		player: player
-	        	})
-	        },
-	        'onStateChange': function(newState) {
-						console.log('aaaaa', newState)
-	        	if (newState.data == YT.PlayerState.ENDED && currentId === elem.data('id')) {
-							$('html, body').animate({scrollTop: '+=' + $('.fail').height() + 'px'}, 800);
-						}
-	        }
-	      }
-	    })
-  	} else {
-  		console.log("YT not loaded yet")
-  	}
-  }
+	if (player) {
+		setTimeout(function () {
+			$image.fadeOut(fadeOutDuration, function () { $image.remove})
+		}, 100)
+		player.player.playVideo()
+		return
+	}
+
+	if (!YT.Player) {
+		console.error("YT not loaded yet")
+		return
+	}
+
+	player = new YT.Player(
+		'iframe-' + elem.data('id'),
+		{
+			events: {
+				'onReady': function () {
+					setTimeout(function() {
+						$image.fadeOut(fadeOutDuration, function () { $image.remove})
+					}, 100)
+					player.playVideo()
+					currentId = elem.data('id')
+					players.push({
+						id: elem.data('id'),
+						player: player
+					})
+				},
+				'onStateChange': function (newState) {
+					if (
+						newState.data === YT.PlayerState.ENDED &&
+						currentId === elem.data('id')
+					) {
+						$('html, body').animate(
+							{scrollTop: '+=' + $('.fail').height() + 'px'},
+							800
+						)
+					}
+				}
+			}
+		}
+	)
 }
 
 function bufferThis (elem) {
@@ -98,40 +106,50 @@ function bufferThis (elem) {
 		return
 	}
 
-	console.log('should buffer ', elem.data('id'))
-
-	if (!getPlayerForId('iframe-' + elem.data('id'))) {
-    	var player;
-    	player = new YT.Player('iframe-' + elem.data('id'), {
-	      events: {
-	        'onReady': function() {
-	        	player.playVideo()
-	        	if (!getPlayerForId(elem.data('id'))) {
-		        	players.push({
-		        		id: elem.data('id'),
-		        		player: player
-		        	})
-	        	}
-	        },
-	        'onStateChange': function(newState) {
-	        	if (!getPlayerForId(elem.data('id'))) {
-		        	players.push({
-		        		id: elem.data('id'),
-		        		player: player
-		        	})
-	        	}
-        	 	if (newState.data == YT.PlayerState.BUFFERING && currentId !== elem.data('id')) {
-        	 		console.log('pause', elem.data('id'))
-			        player.pauseVideo()
-			 			} else if (newState.data == YT.PlayerState.ENDED && currentId === elem.data('id')) {
-							$('html, body').animate({scrollTop: '+=' + $('.fail').height() + 'px'}, 800)
-						} else if (newState.data == YT.PlayerState.PLAYING) {
-							currentId = elem.data('id')
-						}
-	        }
-	      }
-		})
+	if (getPlayerForId('iframe-' + elem.data('id'))) {
+		return
 	}
+
+	var player = new YT.Player(
+		'iframe-' + elem.data('id'),
+		{
+			events: {
+				'onReady': function() {
+					player.playVideo()
+					if (!getPlayerForId(elem.data('id'))) {
+						players.push({
+							id: elem.data('id'),
+							player: player
+						})
+					}
+				},
+				'onStateChange': function(newState) {
+					if (!getPlayerForId(elem.data('id'))) {
+						players.push({
+							id: elem.data('id'),
+							player: player
+						})
+					}
+					if (
+						newState.data === YT.PlayerState.BUFFERING &&
+						currentId !== elem.data('id')
+					) {
+						player.pauseVideo()
+					} else if (
+						newState.data === YT.PlayerState.ENDED &&
+						currentId === elem.data('id')
+					) {
+						$('html, body').animate(
+							{scrollTop: '+=' + $('.fail').height() + 'px'},
+							800
+						)
+					} else if (newState.data === YT.PlayerState.PLAYING) {
+						currentId = elem.data('id')
+					}
+				}
+			}
+		}
+	)
 }
 
 function isScrolledIntoView() {
@@ -141,19 +159,18 @@ function isScrolledIntoView() {
 		var docViewBottom = docViewTop + $(window).height()
 
 		var elemTop = $(frames[i]).offset().top
-		var elemHeight =  $(frames[i]).height()
+		var elemHeight =	$(frames[i]).height()
 		var elemBottom = elemTop + elemHeight
 
-		createIframeForId($(frames[i]).data('id'));
+		createIframeForId($(frames[i]).data('id'))
 
 		if ((elemTop + elemHeight/2) > docViewTop) {
 			for (var j = 1; j < Math.min(frames.length - i, 4); j++) {
-				createIframeForId($(frames[i+j]).data('id'));
+				createIframeForId($(frames[i+j]).data('id'))
 			}
 			playThis($(frames[i]))
 			if (i < frames.length - 1) {
 				bufferThis($(frames[i+1]))
-				console.log('will buffer', $(frames[i+1]).data('id'))
 			}
 			break
 		} else {
@@ -179,5 +196,3 @@ function createIframeForId (id) {
 			'data-id="' + id + '" ' +
 			'id="iframe-' + id + '"/>'))
 }
-
-// playThis($($('.fail .video')[0]));

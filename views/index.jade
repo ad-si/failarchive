@@ -7,10 +7,12 @@ block content
 				name='categories'
 				class='categories'
 				data-placeholder='Choose categories'
-				onchange='this.form.submit()'
 			)
-				each category in categories
-					option(value=category, selected= currentCategory == category) #{category}
+				for category in categories
+					option(
+						value = category
+						selected = (currentCategory === category)
+					)= category
 
 	main
 		for fail, index in fails
@@ -49,3 +51,4 @@ block scripts
 	script(src='//cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js')
 	script(src='//www.youtube.com/iframe_api')
 	script(src='/scripts/main.js')
+=
