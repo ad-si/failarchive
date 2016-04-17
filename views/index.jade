@@ -2,32 +2,36 @@ extends ./layout
 
 block content
 	main
-		for fail, index in fails
-			section.fail
-				h2: a(href='/fail/' + fail.id)= fail.title || ''
+		if !fails || !fails.length
+			p.info No fails available for this query
 
-				.video(
-					id='video-' + fail.id
-					data-id=fail.id
-				)
-					div
-						if index < 3
-							iframe(
-								id='iframe-' + fail.id
+		else
+			for fail, index in fails
+				section.fail
+					h2: a(href='/fail/' + fail.id)= fail.title || ''
+
+					.video(
+						id='video-' + fail.id
+						data-id=fail.id
+					)
+						div
+							if index < 3
+								iframe(
+									id='iframe-' + fail.id
+									data-id=fail.id
+									src='https://www.youtube.com/embed/' + fail.id +
+										'?enablejsapi=1&iv_load_policy=3'
+									frameborder="0"
+									allowfullscreen
+								)
+
+							img(
+								id='image-' + fail.id
 								data-id=fail.id
-								src='https://www.youtube.com/embed/' + fail.id +
-									'?enablejsapi=1&iv_load_policy=3'
-								frameborder="0"
-								allowfullscreen
+								class='thumbnail'
+								src='https://i.ytimg.com/vi/#{fail.id}/hqdefault.jpg'
+								alt=fail.title
 							)
-
-						img(
-							id='image-' + fail.id
-							data-id=fail.id
-							class='thumbnail'
-							src='https://i.ytimg.com/vi/#{fail.id}/hqdefault.jpg'
-							alt=fail.title
-						)
 
 block scripts
 	script(src='//www.youtube.com/iframe_api')
