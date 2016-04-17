@@ -19,6 +19,9 @@ module.exports = (request, response) ->
 
 			fail = JSON.parse(body).result
 			fail.id = request.params.id
+			fail.numberOfVotes = fail.upvotes + fail.downvotes
+			fail.upvotesPercentage = fail.upvotes / fail.numberOfVotes
+			fail.downvotesPercentage = fail.downvotes / fail.numberOfVotes
 
 			response.render 'fail', {fail, availableTags, currentTags}
 	)

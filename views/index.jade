@@ -15,7 +15,7 @@ block content
 						data-id=fail.id
 					)
 						div
-							if index < 3
+							if index < 3 || isMobile
 								iframe(
 									id='iframe-' + fail.id
 									data-id=fail.id
@@ -25,13 +25,14 @@ block content
 									allowfullscreen
 								)
 
-							img(
-								id='image-' + fail.id
-								data-id=fail.id
-								class='thumbnail'
-								src='https://i.ytimg.com/vi/#{fail.id}/hqdefault.jpg'
-								alt=fail.title
-							)
+							if !isMobile
+								img(
+									id='image-' + fail.id
+									data-id=fail.id
+									class='thumbnail'
+									src='https://i.ytimg.com/vi/#{fail.id}/hqdefault.jpg'
+									alt=fail.title
+								)
 
 block scripts
 	script(src='//www.youtube.com/iframe_api')

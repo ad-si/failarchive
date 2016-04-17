@@ -13,11 +13,24 @@ block content
 				)
 
 		p= fail.description || ''
-
-		| Upvotes: #{fail.upvotes || 0}
-		| Downvotes: #{fail.downvotes || 0}
+		
+		progress(
+			value=fail.upvotesPercentage
+			max=1
+		)
+		
+		div.comments
+			div#disqus_thread
 
 block scripts
+	script.
+		(function() {
+		var d = document, s = d.createElement('script');
+		s.src = '//failarchive.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+		})();
+	script#dsq-count-scr(src='//failarchive.disqus.com/count.js', async='')
 	script.
 		var $select = $('select.tag')
 		$select.chosen()
